@@ -152,6 +152,7 @@ df_all_phrase = pd.DataFrame(get_most_n_ph(data.word_chunk, 20, 2), columns=['wo
 fig = plt.figure(figsize=(16, 6))
 sns.barplot(data=df_all_phrase, x='frequency', y='word', color='steelblue')
 plt.title('Top 15 Frequency Phrase')
+plt.ylabel('phrase')
 plt.show()
 
 # ----------word cloud for each element
@@ -160,72 +161,23 @@ phrase_all_df = [lead_ph, position_ph, claim_ph, counterc_ph, rebut_ph, evidence
 df_label = ['Lead Statement', 'Position Statement', 'Claim', 'Counterclaim',
             'Rebuttal Statement', 'Evidence', 'Conclusion']
 
-# for z in range(len(df_label)):
-#     fig, ax = plt.subplots(1, 2, figsize=(12, 12))
-fig, ax = plt.subplots(2, 2, figsize=(12, 12))
-z = 0
-for i in range(2):
-    for j in range(2):
-        # w = " ".join(word_all_df[z].word.values)
-        wordcloud = WordCloud(width=900, height=900,
+for z in range(len(df_label)):
+    fig, ax = plt.subplots(1, 2, figsize=(12, 6))
+    wordcloud1 = WordCloud(width=900, height=900,
                               background_color='white',
                               min_font_size=10, random_state=12).generate_from_frequencies(word_all_df[z])
+    wordcloud2 = WordCloud(width=900, height=900,
+                            background_color='white',
+                            min_font_size=10, random_state=12).generate_from_frequencies(phrase_all_df[z])
 
-        plt.figure(figsize=(8, 8), facecolor=None)
-        ax[i, j].imshow(wordcloud)
-        ax[i, j].set_title(f'Most Frequent Word in {df_label[z]}', fontsize=15)
-        z+=1
-plt.tight_layout(pad=0)
-plt.show()
-
-fig, ax = plt.subplots(3, 1, figsize=(6, 12))
-z = 4
-for i in range(3):
-        # w = " ".join(word_all_df[z].word.values)
-        wordcloud = WordCloud(width=900, height=900,
-                              background_color='white',
-                              min_font_size=10, random_state=12).generate_from_frequencies(word_all_df[z])
-
-        plt.figure(figsize=(8, 8), facecolor=None)
-        ax[i].imshow(wordcloud)
-        ax[i].set_title(f'Most Frequent Word in {df_label[z]}', fontsize=15)
-        z+=1
-plt.tight_layout(pad=0)
-plt.show()
-
-
-# ----------phrase cloud for each element
-
-
-
-fig, ax = plt.subplots(2, 2, figsize=(12, 12))
-z = 0
-for i in range(2):
-    for j in range(2):
-        wordcloud = WordCloud(width=900, height=900,
-                              background_color='white',
-                              min_font_size=10, random_state=12).generate_from_frequencies(phrase_all_df[z])
-
-        plt.figure(figsize=(8, 8), facecolor=None)
-        ax[i, j].imshow(wordcloud, interpolation='bilinear')
-        ax[i, j].set_title(f'Most Frequent Phrase in {df_label[z]}', fontsize=15)
-        z+=1
-plt.tight_layout(pad=0)
-plt.show()
-
-fig, ax = plt.subplots(3, 1, figsize=(6, 12))
-z = 4
-for i in range(3):
-        wordcloud = WordCloud(width=900, height=900,
-                              background_color='white',
-                              min_font_size=10, random_state=12).generate_from_frequencies(phrase_all_df[z])
-
-        plt.figure(figsize=(8, 8), facecolor=None)
-        ax[i].imshow(wordcloud)
-        ax[i].set_title(f'Most Frequent Phrase in {df_label[z]}', fontsize=15)
-        z+=1
-plt.tight_layout(pad=0)
-plt.show()
+    plt.figure(figsize=(10, 10), facecolor=None)
+    ax[0].imshow(wordcloud1)
+    ax[0].set_title(f'Most Frequent Word in {df_label[z]}', fontsize=15)
+    ax[1].imshow(wordcloud2)
+    ax[1].set_title(f'Most Frequent Phrase in {df_label[z]}', fontsize=15)
+    plt.axis('off')
+    plt.tight_layout(pad=0)
+    plt.show()
 
 # ------------------------------Modeling------------------------------
 # #============== train test split #==============
