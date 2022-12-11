@@ -34,9 +34,6 @@ data['token'] = data.text.apply(nltk_tokenization, remove_punc=True)
 
 
 # ----------words frequency
-print('number of samples with each label:')
-print(data[['discourse_type', 'label']].value_counts())
-
 
 # Lead(label 0)
 df_lead = data.token[data.label==0]
@@ -132,6 +129,11 @@ evidence_ph = dict(get_most_n_ph(df_evidence_ph, 80, 2)[3:])
 conclusion_ph = dict(get_most_n_ph(df_conclude_ph, 80, 2)[3:])
 
 # ------------------------------Visualization------------------------------
+# ----------tables
+print(pd.DataFrame(dataset.filter(['discourse_text', 'discourse_type', 'label'])).head(5))
+print('number of samples with each label:')
+print(data[['discourse_type', 'label']].value_counts())
+
 # ----------target distribution
 temp_df = pd.DataFrame(data['discourse_type'].value_counts())
 fig = plt.figure(figsize=(14, 6))
@@ -155,7 +157,7 @@ plt.title('Top 15 Frequency Phrase')
 plt.ylabel('phrase')
 plt.show()
 
-# ----------word cloud for each element
+# ----------word cloud for each discourse element
 word_all_df = [lead, position, claim, counterc, rebut, evidence, conclusion]
 phrase_all_df = [lead_ph, position_ph, claim_ph, counterc_ph, rebut_ph, evidence_ph, conclusion_ph]
 df_label = ['Lead Statement', 'Position Statement', 'Claim', 'Counterclaim',
@@ -172,10 +174,11 @@ for z in range(len(df_label)):
 
     plt.figure(figsize=(10, 10), facecolor=None)
     ax[0].imshow(wordcloud1)
-    ax[0].set_title(f'Most Frequent Word in {df_label[z]}', fontsize=15)
+    ax[0].set_title(f'Most Frequent Word in {df_label[z]}', fontsize=18, color='lightcoral')
     ax[1].imshow(wordcloud2)
-    ax[1].set_title(f'Most Frequent Phrase in {df_label[z]}', fontsize=15)
-    plt.axis('off')
+    ax[1].set_title(f'Most Frequent Phrase in {df_label[z]}', fontsize=18, color='lightcoral')
+    ax[0].axis('off')
+    ax[1].axis('off')
     plt.tight_layout(pad=0)
     plt.show()
 
