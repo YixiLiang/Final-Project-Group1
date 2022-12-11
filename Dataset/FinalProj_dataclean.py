@@ -11,7 +11,7 @@ from unidecode import unidecode
 # ------------------------preprocessing------------------------
 # ----------load data
 # dataset = pd.read_csv('train.csv')
-dataset = pd.read_csv('train.csv.zip', encoding='utf-8')
+dataset = pd.read_csv('train.csv.zip')
 data = dataset[['discourse_text', 'discourse_type']].copy()
 # ----------check null values
 print('missing values exists:\n', data.isnull().any())
@@ -32,12 +32,18 @@ def clean_text(x):
     x = unidecode(x)
     # ----------lowercase
     x = x.lower()
-    # ----------remove url
-    match_url = re.compile(r'https?://(www\.)?(\w+)(\.\w+)')
+    # ----------remove consecutive letter 3ormore
+    x = re.sub(r'([^\W\d_])\1{2,}', r'\1\1', x)
+    # ----------remove url(not-well formatted)
+    # match_url = re.compile(r'http\S+')
+    match_url = re.compile(r'https?://(www\.)?([-_\w\s\.\/]*)')
     x = re.sub(match_url, "", x)
+    # ----------remove parenthesis
+    # x = re.sub(re.compile(r'\([^\)]*\)'), "", x)
+    x = re.sub(re.compile(r'[()]'), "", x)
     return x
 
-data['text'] = data['discourse_text'].astype(str).apply(lambda x: clean_text(x))
+data['text'] = data['discourse_text'].astype(str).apply(clean_text)
 
 print(f'after cleaning: {data.text.iloc[144290]}')
 # ----------remove stop words
@@ -51,26 +57,16 @@ def remove_stop_words(corpus):
 
     return result
 
-data['text'] = data['text'].apply(lambda x: remove_stop_words(x))
+data['text'] = data['text'].apply(remove_stop_words)
 
 # ----------lemmatize
 lemma = nltk.WordNetLemmatizer()
-data['text'] = data.text.apply(lambda x: lemma.lemmatize(x))
+data['text'] = data.text.apply(lemma.lemmatize)
 
 # ----------remove non-sense text
 print('Dataset has text with no sense:')
 print(data[data.text==""])
 data = data[data.text!=""].reset_index()
-
-# ----------tokenize
-# from transformers import AutoTokenizer
-# checkpoint = "distilbert-base-uncased"
-# tokenizer = AutoTokenizer.from_pretrained(checkpoint)
-# data['text'] = data['text'].apply(lambda x:tokenizer.tokenize(x, truncation=True, return_tensors="pt"))
-# print(data.head())
-
-# data['sent_token'] = data['text'].apply(lambda x: sent_tokenize(x))
-# print(data.sent_token.head())
 
 # ----------savedata
 df = data.filter(['text', 'discourse_text', 'discourse_type', 'label'])
