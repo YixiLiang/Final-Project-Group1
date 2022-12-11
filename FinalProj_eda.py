@@ -136,10 +136,12 @@ print(data[['discourse_type', 'label']].value_counts())
 
 # ----------target distribution
 temp_df = pd.DataFrame(data['discourse_type'].value_counts())
-fig = plt.figure(figsize=(14, 6))
+fig = plt.figure(figsize=(16, 6))
 plt.barh(temp_df.index, temp_df.discourse_type)
 plt.title('Discourse Element Type Distribution')
 plt.xlabel('count')
+plt.ylabel('discourse types')
+plt.grid()
 plt.show()
 
 # ----------frequent word in dataset
@@ -147,6 +149,7 @@ df_all_word = pd.DataFrame(get_most_n(data.token, 15), columns=['word', 'frequen
 fig = plt.figure(figsize=(10, 6))
 sns.barplot(data=df_all_word, x='frequency', y='word', color='steelblue')
 plt.title('Top 15 Frequency Words')
+plt.grid()
 plt.show()
 
 # # ----------frequent phrase in dataset
@@ -155,6 +158,7 @@ fig = plt.figure(figsize=(16, 6))
 sns.barplot(data=df_all_phrase, x='frequency', y='word', color='steelblue')
 plt.title('Top 15 Frequency Phrase')
 plt.ylabel('phrase')
+plt.grid()
 plt.show()
 
 # ----------word cloud for each discourse element
