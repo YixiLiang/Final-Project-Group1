@@ -36,6 +36,7 @@ for i in range(1, 20):
     cur_dataset = pd.read_csv(f'summary_{num}_{num+1000}.csv')
     final_dataset = pd.concat([final_dataset, cur_dataset], ignore_index=True)
 
+final_dataset = pd.DataFrame({'text':final_dataset['text'], 'label': final_dataset['label'], 'summary':final_dataset['summary']})
 train_balanced, test_balanced = train_test_split(final_dataset, test_size=0.1)
 
 train_balanced.to_csv('train_balanced.csv', index=False)
