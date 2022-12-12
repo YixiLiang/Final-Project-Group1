@@ -1,17 +1,9 @@
 import matplotlib.pyplot as plt
-import seaborn as sns
-import numpy as np
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from transformers import AutoTokenizer, AdamW, BertForSequenceClassification, BertTokenizer, DataCollatorWithPadding
-import torch
-from torch import nn
 import seaborn as sns
 import re
 import nltk
 from collections import Counter
-import contractions
-import spacy
 from wordcloud import WordCloud
 from rake_nltk import Rake
 
@@ -21,8 +13,7 @@ data = dataset.filter(['text', 'discourse_type', 'label'])
 
 # ----------word tokenization
 def nltk_tokenization(text, remove_punc=False):
-    # remove contraction
-    text = contractions.fix(text)
+
     # remove punc
     if remove_punc:
         text = re.sub(r'[^\w\s]','',text)
@@ -72,7 +63,7 @@ claim = dict(get_most_n(df_claim, 80)[4:])
 counterc = dict(get_most_n(df_counter, 80)[5:])
 rebut = dict(get_most_n(df_rebut, 80)[3:])
 evidence = dict(get_most_n(df_evidence, 80)[5:])
-conclusion = dict(get_most_n(df_conclude, 80)[4:])
+conclusion = dict(get_most_n(df_conclude, 80)[5:])
 
 # ----------phrase detection
 # nlp = spacy.load('en_core_web_sm')
@@ -126,7 +117,7 @@ claim_ph = dict(get_most_n_ph(df_claim_ph, 80, 2)[4:])
 counterc_ph = dict(get_most_n_ph(df_counter_ph, 80, 2)[3:])
 rebut_ph = dict(get_most_n_ph(df_rebut_ph, 80, 2)[3:])
 evidence_ph = dict(get_most_n_ph(df_evidence_ph, 80, 2)[3:])
-conclusion_ph = dict(get_most_n_ph(df_conclude_ph, 80, 2)[3:])
+conclusion_ph = dict(get_most_n_ph(df_conclude_ph, 80, 2)[5:])
 
 # ------------------------------Visualization------------------------------
 # ----------tables
