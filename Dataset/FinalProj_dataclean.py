@@ -6,6 +6,7 @@ import re
 import nltk
 import os
 from unidecode import unidecode
+import contractions
 
 
 # ------------------------preprocessing------------------------
@@ -32,12 +33,14 @@ def clean_text(x):
     x = unidecode(x)
     # ----------lowercase
     x = x.lower()
-    # ----------remove consecutive letter 3ormore
-    x = re.sub(r'([^\W\d_])\1{2,}', r'\1\1', x)
+    # remove contraction
+    x = contractions.fix(x)
     # ----------remove url(not-well formatted)
     # match_url = re.compile(r'http\S+')
     match_url = re.compile(r'https?://(www\.)?([-_\w\s\.\/]*)')
     x = re.sub(match_url, "", x)
+    # ----------remove consecutive letter 3ormore
+    x = re.sub(r'([^\W\d_])\1{2,}', r'\1\1', x)
     # ----------remove parenthesis
     # x = re.sub(re.compile(r'\([^\)]*\)'), "", x)
     x = re.sub(re.compile(r'[()]'), "", x)
