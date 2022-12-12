@@ -8,7 +8,7 @@ from wordcloud import WordCloud
 from rake_nltk import Rake
 
 # ------------------------------Preprocessing------------------------------
-dataset = pd.read_csv('Dataset/clean_train.csv', index_col=[0])
+dataset = pd.read_csv('../Dataset/clean_train.csv', index_col=[0])
 data = dataset.filter(['text', 'discourse_type', 'label'])
 
 # ----------word tokenization
