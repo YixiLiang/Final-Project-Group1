@@ -74,6 +74,6 @@ data = data[data.text!=""].reset_index()
 # ----------savedata
 df = data.filter(['text', 'discourse_text', 'discourse_type', 'label'])
 path = os.getcwd()
-df.to_csv(f'{path}/clean_train.csv')
+df.to_csv(f'{path}../Dataset/clean_train.csv')
 
 
