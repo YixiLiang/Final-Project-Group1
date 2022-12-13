@@ -32,9 +32,10 @@ for i in range(20):
 
 final_dataset = pd.read_csv(f'summary_0_1000.csv')
 num = 0
-for i in range(1, 20):
+for i in range(1, 5):
     cur_dataset = pd.read_csv(f'summary_{num}_{num+1000}.csv')
     final_dataset = pd.concat([final_dataset, cur_dataset], ignore_index=True)
+    num += 1000
 
 final_dataset = pd.DataFrame({'text':final_dataset['discourse_text'], 'label': final_dataset['label'], 'summary':final_dataset['summary']})
 train_balanced, test_balanced = train_test_split(final_dataset, test_size=0.1)
