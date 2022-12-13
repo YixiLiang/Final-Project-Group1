@@ -2,11 +2,11 @@
 
 run python file in the following order:
 ###### FinalProj_dataclean.py 
-          Preprocess
+          Preprocess and clean data
 ###### FinalProj_eda.py 
           EDA and visualization
 ###### Final_project_clean_data_add_summary.py 
-          Clean the data and add summary column and seperate train_balanced.csv and test_balanced.csv.
+          Add summary column and seperate train and test datasets.
 ###### Finalproj_RuleBased_Models.py 
           Rule-based models (naive bayes and logistic)
 ###### Transfomers.py 
