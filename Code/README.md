@@ -1,6 +1,9 @@
 # Final project
 
-run python file in the following order:
+Access to our datasets for code using: https://drive.google.com/drive/folders/1EwIBMrRg1dliLwwwZ_qXdqAQIscQwDtF?usp=sharing
+
+###### Suggested Order:
+
 ###### FinalProj_dataclean.py 
           Preprocess and clean data
 ###### FinalProj_eda.py 
