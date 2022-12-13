@@ -32,7 +32,7 @@ for i in range(20):
 
 final_dataset = pd.read_csv(f'summary_0_1000.csv')
 num = 0
-for i in range(1, 5):
+for i in range(1, 20):
     cur_dataset = pd.read_csv(f'summary_{num}_{num+1000}.csv')
     final_dataset = pd.concat([final_dataset, cur_dataset], ignore_index=True)
     num += 1000
