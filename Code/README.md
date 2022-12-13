@@ -9,7 +9,8 @@ Access to our datasets for code using: https://drive.google.com/drive/folders/1E
 ###### FinalProj_eda.py 
           EDA and visualization
 ###### Final_project_clean_data_add_summary.py 
-          Add summary column and seperate train and test datasets.
+          Add summary column and seperate balanced train and test datasets.
+          (Take long time to run, suggest not running this, use already-organized dataset provided in google drive)
 ###### Finalproj_RuleBased_Models.py 
           Rule-based models (naive bayes and logistic)
 ###### Transfomers.py 
